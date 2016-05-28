@@ -7,13 +7,7 @@
 
 import Foundation
 
-class CharBox {
-    
-    var text : String
-    var rect : CGRect
-    
-    init(text:String, rect:CGRect){
-        self.text = text
-        self.rect = rect
-    }
+struct CharBox {
+    let text: String
+    let rect: CGRect
 }
