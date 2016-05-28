@@ -11,41 +11,21 @@ import UIKit
 
 class SwiftOCR {
     
-    var _image: UIImage
-    var _tesseract: Tesseract
-    var _characterBoxes : Array<CharBox>
+    var image: UIImage
+    var tesseract: Tesseract
+    var characterBoxes : Array<CharBox>
     
-    var _groupedImage : UIImage
-    var _recognizedText: String
-    
-    //Get grouped image after executing recognize method
-    var groupedImage : UIImage {
-        get {
-            return _groupedImage;
-        }
-    }
-    
-    //Get Recognized Text after executing recognize method
-    var recognizedText: String {
-        get {
-            return _recognizedText;
-        }
-    }
-    
-    var characterBoxes :Array<CharBox> {
-        get {
-            return _characterBoxes;
-        }
-    }
+    var groupedImage : UIImage
+    var recognizedText: String
     
     init(fromImagePath path:String) {
-        _image = UIImage(contentsOfFile: path)!
-        _tesseract = Tesseract(language: "eng")
-        _tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
-        _tesseract.image = _image
-        _characterBoxes = Array<CharBox>()
-        _groupedImage = _image
-        _recognizedText = ""
+        image = UIImage(contentsOfFile: path)!
+        tesseract = Tesseract(language: "eng")
+        tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
+        tesseract.image = image
+        characterBoxes = Array<CharBox>()
+        groupedImage = image
+        recognizedText = ""
     }
     
     init(fromImage image:UIImage) {
@@ -55,26 +35,26 @@ class SwiftOCR {
         
         UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
         fimage.drawInRect(CGRectMake(0, 0, size.width, size.height))
-       _image = UIGraphicsGetImageFromCurrentImageContext()
+        self.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
        
     
         
-        _tesseract = Tesseract(language: "eng")
-        _tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
-        _tesseract.image = _image
-        _characterBoxes = Array<CharBox>()
-         _groupedImage = _image
-        _recognizedText = ""
-        NSLog("%d",_image.imageOrientation.rawValue);
+        tesseract = Tesseract(language: "eng")
+        tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
+        tesseract.image = image
+        characterBoxes = Array<CharBox>()
+         groupedImage = image
+        recognizedText = ""
+        NSLog("%d",image.imageOrientation.rawValue);
     }
     
     //Recognize function
     func recognize() {
         
-         _characterBoxes = Array<CharBox>()
+         characterBoxes = Array<CharBox>()
         
-        let uImage = CImage(image: _image);
+        let uImage = CImage(image: image);
         
         let channels = uImage.channels;
         
@@ -94,11 +74,11 @@ class SwiftOCR {
             regions.append(region);
         }
         
-        _groupedImage = ExtremeRegionStat.groupImage(uImage, withRegions: regions);
+        groupedImage = ExtremeRegionStat.groupImage(uImage, withRegions: regions);
         
-        _tesseract.recognize();
+        tesseract.recognize();
     
-        let words = _tesseract.getConfidenceByWord;
+        let words = tesseract.getConfidenceByWord;
         
         var texts = Array<String>();
         
@@ -112,7 +92,7 @@ class SwiftOCR {
             }
             
             let rect = box.CGRectValue()
-            _characterBoxes.append(CharBox(text: text, rect: rect))
+            characterBoxes.append(CharBox(text: text, rect: rect))
             texts.append(text)
         }
         
@@ -125,6 +105,6 @@ class SwiftOCR {
             }
         }
         
-        _recognizedText = str
+        recognizedText = str
     }
 }

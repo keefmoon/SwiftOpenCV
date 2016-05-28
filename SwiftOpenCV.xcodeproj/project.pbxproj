@@ -24,7 +24,6 @@
 		3BBEA9D119FFCE6F00282ACD /* ImageWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D019FFCE6F00282ACD /* ImageWrapper.mm */; };
 		3BBEA9D319FFCE7F00282ACD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */; };
 		3BBEA9D619FFCE8E00282ACD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D519FFCE8E00282ACD /* MBProgressHUD.m */; };
-		3BBEA9D819FFD18500282ACD /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBEA9D719FFD18500282ACD /* CoreImage.framework */; };
 		3BBEA9DA19FFD19500282ACD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBEA9D919FFD19500282ACD /* libstdc++.6.0.9.dylib */; };
 		3BBEA9DD19FFD1B400282ACD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBEA9DB19FFD1B400282ACD /* opencv2.framework */; };
 		3BBEA9DE19FFD1B400282ACD /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */; };
@@ -69,12 +68,11 @@
 		3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		3BBEA9D419FFCE8E00282ACD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3BBEA9D519FFCE8E00282ACD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		3BBEA9D719FFD18500282ACD /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3BBEA9D919FFD19500282ACD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		3BBEA9DB19FFD1B400282ACD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		3BBEA9DB19FFD1B400282ACD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
+		3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TesseractOCR.framework; path = ../TesseractOCR.framework; sourceTree = "<group>"; };
 		3BBEA9F219FFD3A800282ACD /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		3BBEA9FE19FFDDC100282ACD /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		3BBEA9FE19FFDDC100282ACD /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tessdata; path = SwiftOpenCV/tessdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +83,6 @@
 				3BBEA9DD19FFD1B400282ACD /* opencv2.framework in Frameworks */,
 				3BBEA9DE19FFD1B400282ACD /* TesseractOCR.framework in Frameworks */,
 				3BBEA9DA19FFD19500282ACD /* libstdc++.6.0.9.dylib in Frameworks */,
-				3BBEA9D819FFD18500282ACD /* CoreImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,15 +96,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3BBEA97919FFCBCD00282ACD = {
+		2F1319631CF9CFBC00CBDA18 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				3BBEA9DB19FFD1B400282ACD /* opencv2.framework */,
 				3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */,
 				3BBEA9D919FFD19500282ACD /* libstdc++.6.0.9.dylib */,
-				3BBEA9D719FFD18500282ACD /* CoreImage.framework */,
+			);
+			name = Frameworks;
+			path = SwiftOpenCV;
+			sourceTree = "<group>";
+		};
+		2F1319641CF9CFFC00CBDA18 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3BBEA9BB19FFCD6400282ACD /* scenetext01.jpg */,
+				3BBEA9BC19FFCD6400282ACD /* scenetext02.jpg */,
+				3BBEA9BD19FFCD6400282ACD /* trained_classifierNM1.xml */,
+				3BBEA9BE19FFCD6400282ACD /* trained_classifierNM2.xml */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3BBEA97919FFCBCD00282ACD = {
+			isa = PBXGroup;
+			children = (
 				3BBEA98419FFCBCE00282ACD /* SwiftOpenCV */,
 				3BBEA99A19FFCBCE00282ACD /* SwiftOpenCVTests */,
+				2F1319631CF9CFBC00CBDA18 /* Frameworks */,
+				3BBEA9FE19FFDDC100282ACD /* tessdata */,
 				3BBEA98319FFCBCE00282ACD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,7 +141,6 @@
 		3BBEA98419FFCBCE00282ACD /* SwiftOpenCV */ = {
 			isa = PBXGroup;
 			children = (
-				3BBEA9FE19FFDDC100282ACD /* tessdata */,
 				3BBEA9D419FFCE8E00282ACD /* MBProgressHUD.h */,
 				3BBEA9D519FFCE8E00282ACD /* MBProgressHUD.m */,
 				3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */,
@@ -137,10 +153,6 @@
 				3BBEA9C819FFCE3B00282ACD /* TextDetect.mm */,
 				3BBEA9C519FFCE3000282ACD /* SwiftOCR.swift */,
 				3BBEA9C319FFCE0D00282ACD /* Main.storyboard */,
-				3BBEA9BB19FFCD6400282ACD /* scenetext01.jpg */,
-				3BBEA9BC19FFCD6400282ACD /* scenetext02.jpg */,
-				3BBEA9BD19FFCD6400282ACD /* trained_classifierNM1.xml */,
-				3BBEA9BE19FFCD6400282ACD /* trained_classifierNM2.xml */,
 				3BBEA9F219FFD3A800282ACD /* ArrayExtension.swift */,
 				3BBEA98719FFCBCE00282ACD /* AppDelegate.swift */,
 				3BBEA98919FFCBCE00282ACD /* ViewController.swift */,
@@ -148,6 +160,7 @@
 				3BBEA99019FFCBCE00282ACD /* LaunchScreen.xib */,
 				3BBEA98519FFCBCE00282ACD /* Supporting Files */,
 				3BBEA9A719FFCCE000282ACD /* SwiftOpenCV-Bridging-Header.h */,
+				2F1319641CF9CFFC00CBDA18 /* Resources */,
 			);
 			path = SwiftOpenCV;
 			sourceTree = "<group>";
