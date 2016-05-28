@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func onTakePictureTapped(sender: AnyObject) {
         
-        var sheet: UIActionSheet = UIActionSheet();
+        let sheet: UIActionSheet = UIActionSheet();
         let title: String = "Please choose an option";
         sheet.title  = title;
         sheet.delegate = self;
@@ -37,8 +37,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         sheet.showInView(self.view);
     }
     
-    func actionSheet(sheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
-        var imagePicker = UIImagePickerController()
+    func actionSheet(sheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
         switch buttonIndex{
@@ -63,11 +63,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func onDetectTapped(sender: AnyObject) {
         
-        var progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        let progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         progressHud.labelText = "Detecting..."
         progressHud.mode = MBProgressHUDModeIndeterminate
         
-        var ocr = SwiftOCR(fromImage: selectedImage)
+        let ocr = SwiftOCR(fromImage: selectedImage)
         ocr.recognize()
         
         imageView.image = ocr.groupedImage
@@ -78,12 +78,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func onRecognizeTapped(sender: AnyObject) {
         
         if((self.selectedImage) != nil){
-            var progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+            let progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
             progressHud.labelText = "Detecting..."
             progressHud.mode = MBProgressHUDModeIndeterminate
             
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                var ocr = SwiftOCR(fromImage: self.selectedImage)
+                let ocr = SwiftOCR(fromImage: self.selectedImage)
                 ocr.recognize()
                 
                 dispatch_sync(dispatch_get_main_queue(), { () -> Void in
@@ -91,11 +91,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     
                     progressHud.hide(true);
                     
-                    var dprogressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                    let dprogressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                     dprogressHud.labelText = "Recognizing..."
                     dprogressHud.mode = MBProgressHUDModeIndeterminate
                     
-                    var text = ocr.recognizedText
+                    let text = ocr.recognizedText
                     
                     self.performSegueWithIdentifier("ShowRecognition", sender: text);
                     
@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 })
             })
         }else {
-            var alert = UIAlertView(title: "SwiftOCR", message: "Please select image", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "SwiftOCR", message: "Please select image", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -119,8 +119,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var vc =  segue.destinationViewController as DetailViewController
-        vc.recognizedText = sender as String!
+        let vc =  segue.destinationViewController as! DetailViewController
+        vc.recognizedText = sender as! String
     }
 }
 
