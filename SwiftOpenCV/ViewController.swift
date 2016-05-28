@@ -8,21 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate {
+class ViewController: UIViewController {
+    
+    enum Segue: String {
+        case ShowRecognition
+    }
     
     @IBOutlet weak var imageView: UIImageView!
     
-    var selectedImage : UIImage!
+    var selectedImage : UIImage?
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
+    // MARK: Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc =  segue.destinationViewController as! DetailViewController
+        vc.recognizedText = sender as! String
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    // MARK: Actions
     
     @IBAction func onTakePictureTapped(sender: AnyObject) {
         
@@ -36,6 +39,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         sheet.cancelButtonIndex = 2;
         sheet.showInView(self.view);
     }
+    
+    @IBAction func onRecognizeTapped(sender: AnyObject) {
+        
+        guard let selectedImage = selectedImage else {
+            
+            let alert = UIAlertController(title: "SwiftOCR", message: "Please select image", preferredStyle: .Alert)
+            let cancel = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        progressHud.labelText = "Detecting..."
+        progressHud.mode = MBProgressHUDModeIndeterminate
+        
+        dispatch_async(dispatch_get_global_queue(0, 0)) {
+            let ocr = SwiftOCR(fromImage: self.selectedImage)
+            ocr.recognize()
+            
+            dispatch_sync(dispatch_get_main_queue()) {
+                self.imageView.image = ocr.groupedImage
+                
+                progressHud.hide(true);
+                
+                let dprogressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                dprogressHud.labelText = "Recognizing..."
+                dprogressHud.mode = MBProgressHUDModeIndeterminate
+                
+                let text = ocr.recognizedText
+                
+                self.performSegueWithIdentifier(Segue.ShowRecognition.rawValue, sender: text)
+                
+                dprogressHud.hide(true)
+            }
+        }
+    }
+}
+
+// MARK: - UIActionSheetDelegate
+
+extension ViewController: UIActionSheetDelegate {
     
     func actionSheet(sheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         let imagePicker = UIImagePickerController()
@@ -59,68 +103,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             break;
         }
     }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
-    @IBAction func onDetectTapped(sender: AnyObject) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
-        let progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        progressHud.labelText = "Detecting..."
-        progressHud.mode = MBProgressHUDModeIndeterminate
-        
-        let ocr = SwiftOCR(fromImage: selectedImage)
-        ocr.recognize()
-        
-        imageView.image = ocr.groupedImage
-        
-        progressHud.hide(true);
-    }
-    
-    @IBAction func onRecognizeTapped(sender: AnyObject) {
-        
-        if((self.selectedImage) != nil){
-            let progressHud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            progressHud.labelText = "Detecting..."
-            progressHud.mode = MBProgressHUDModeIndeterminate
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                let ocr = SwiftOCR(fromImage: self.selectedImage)
-                ocr.recognize()
-                
-                dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-                    self.imageView.image = ocr.groupedImage
-                    
-                    progressHud.hide(true);
-                    
-                    let dprogressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                    dprogressHud.labelText = "Recognizing..."
-                    dprogressHud.mode = MBProgressHUDModeIndeterminate
-                    
-                    let text = ocr.recognizedText
-                    
-                    self.performSegueWithIdentifier("ShowRecognition", sender: text);
-                    
-                    dprogressHud.hide(true)
-                })
-            })
-        }else {
-            let alert = UIAlertView(title: "SwiftOCR", message: "Please select image", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-    }
-    
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-        selectedImage = image;
-        picker.dismissViewControllerAnimated(true, completion: nil);
-        imageView.image = selectedImage;
+        guard let choosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        selectedImage = choosenImage
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        imageView.image = choosenImage
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let vc =  segue.destinationViewController as! DetailViewController
-        vc.recognizedText = sender as! String
-    }
 }
-
