@@ -18,27 +18,23 @@ class SwiftOCR {
     var groupedImage : UIImage
     var recognizedText: String
     
-    init(fromImagePath path:String) {
-        image = UIImage(contentsOfFile: path)!
-        tesseract = Tesseract(language: "eng")
-        tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
-        tesseract.image = image
-        characterBoxes = Array<CharBox>()
-        groupedImage = image
-        recognizedText = ""
+    convenience init(fromImagePath path:String) {
+        
+        let retrievedImage = UIImage(contentsOfFile: path)!
+        self.init(fromImage: retrievedImage)
     }
     
     init(fromImage image:UIImage) {
         let fimage = image.fixOrientation()
         
-        let size = CGSizeMake(fimage.size.width, fimage.size.height)
+//        let size = CGSizeMake(fimage.size.width, fimage.size.height)
         
-        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-        fimage.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        self.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-       
-    
+//        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+//        fimage.drawInRect(CGRectMake(0, 0, size.width, size.height))
+//        self.image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext();
+
+        self.image = fimage
         
         tesseract = Tesseract(language: "eng")
         tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
