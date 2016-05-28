@@ -29,15 +29,29 @@ class ViewController: UIViewController {
     
     @IBAction func onTakePictureTapped(sender: AnyObject) {
         
-        let sheet: UIActionSheet = UIActionSheet();
-        let title: String = "Please choose an option";
-        sheet.title  = title;
-        sheet.delegate = self;
-        sheet.addButtonWithTitle("Choose Picture");
-        sheet.addButtonWithTitle("Take Picture");
-        sheet.addButtonWithTitle("Cancel");
-        sheet.cancelButtonIndex = 2;
-        sheet.showInView(self.view);
+        let alert = UIAlertController(title: "Please choose an option", message: nil, preferredStyle: .ActionSheet)
+        let cameraAction = UIAlertAction(title: "Take Picture", style: .Default) { [weak self] action in
+            
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            imagePicker.allowsEditing = false
+            self?.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        let photoLibraryAction = UIAlertAction(title: "Choose Picture", style: .Default) { [weak self] action in
+            
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            imagePicker.allowsEditing = false
+            self?.presentViewController(imagePicker, animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        alert.addAction(cameraAction)
+        alert.addAction(photoLibraryAction)
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func onRecognizeTapped(sender: AnyObject) {
@@ -46,6 +60,7 @@ class ViewController: UIViewController {
             
             let alert = UIAlertController(title: "SwiftOCR", message: "Please select image", preferredStyle: .Alert)
             let cancel = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            alert.addAction(cancel)
             presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -55,7 +70,7 @@ class ViewController: UIViewController {
         progressHud.mode = MBProgressHUDModeIndeterminate
         
         dispatch_async(dispatch_get_global_queue(0, 0)) {
-            let ocr = SwiftOCR(fromImage: self.selectedImage)
+            let ocr = SwiftOCR(fromImage: selectedImage)
             ocr.recognize()
             
             dispatch_sync(dispatch_get_main_queue()) {
@@ -73,34 +88,6 @@ class ViewController: UIViewController {
                 
                 dprogressHud.hide(true)
             }
-        }
-    }
-}
-
-// MARK: - UIActionSheetDelegate
-
-extension ViewController: UIActionSheetDelegate {
-    
-    func actionSheet(sheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        
-        switch buttonIndex{
-            
-        case 0:
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            imagePicker.allowsEditing = false
-            imagePicker.delegate = self
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-            break;
-        case 1:
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            imagePicker.allowsEditing = false
-            imagePicker.delegate = self
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-            break;
-        default:
-            break;
         }
     }
 }
