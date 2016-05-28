@@ -51,8 +51,18 @@
                                     <rect key="frame" x="0.0" y="20" width="375" height="450"/>
                                 </variation>
                             </imageView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCR-bc-t2E">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QuU-zQ-Wfg" firstAttribute="top" secondItem="KCR-bc-t2E" secondAttribute="bottom" id="7lm-E5-Msw"/>
+                            <constraint firstItem="KCR-bc-t2E" firstAttribute="top" secondItem="6nI-lq-Vsp" secondAttribute="top" id="BbD-9m-we0"/>
+                            <constraint firstAttribute="trailing" secondItem="KCR-bc-t2E" secondAttribute="trailing" id="I3C-Cw-cc5"/>
+                            <constraint firstItem="KCR-bc-t2E" firstAttribute="leading" secondItem="6nI-lq-Vsp" secondAttribute="leading" id="eew-3M-7eN"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="pcD-TI-ahy"/>
@@ -78,11 +88,12 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="imageView" destination="9yg-b5-PsS" id="0UB-iP-QGn"/>
+                        <outlet property="labelContainer" destination="KCR-bc-t2E" id="lMt-k6-tuk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVL-if-d0A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1409.5" y="273.375"/>
+            <point key="canvasLocation" x="1409.5" y="272.5"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="pmj-rF-xKj">

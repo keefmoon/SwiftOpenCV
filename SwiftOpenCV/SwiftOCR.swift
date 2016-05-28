@@ -11,96 +11,57 @@ import UIKit
 
 class SwiftOCR {
     
-    var image: UIImage
     var tesseract: Tesseract
-    var characterBoxes : Array<CharBox>
+    let backgroundQueue = dispatch_get_global_queue(0, 0)
     
-    var groupedImage : UIImage
-    var recognizedText: String
-    
-    convenience init(fromImagePath path:String) {
-        
-        let retrievedImage = UIImage(contentsOfFile: path)!
-        self.init(fromImage: retrievedImage)
-    }
-    
-    init(fromImage image:UIImage) {
-        let fimage = image.fixOrientation()
-        
-//        let size = CGSizeMake(fimage.size.width, fimage.size.height)
-        
-//        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-//        fimage.drawInRect(CGRectMake(0, 0, size.width, size.height))
-//        self.image = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext();
-
-        self.image = fimage
+    init() {
         
         tesseract = Tesseract(language: "eng")
         tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", forKey: "tessedit_char_whitelist")
-        tesseract.image = image
-        characterBoxes = Array<CharBox>()
-         groupedImage = image
-        recognizedText = ""
-        NSLog("%d",image.imageOrientation.rawValue);
     }
     
-    //Recognize function
-    func recognize() {
+    func prepare(image: UIImage, completionHandler: UIImage -> Void) {
         
-         characterBoxes = Array<CharBox>()
-        
-        let uImage = CImage(image: image);
-        
-        let channels = uImage.channels;
-        
-        let classifier1 = NSBundle.mainBundle().pathForResource("trained_classifierNM1", ofType: "xml")
-//        let classifier2 = NSBundle.mainBundle().pathForResource("trained_classifierNM2", ofType: "xml")
-        
-        let erFilter1 = ExtremeRegionFilter.createERFilterNM1(classifier1, c: 8, x: 0.00015, y: 0.13, f: 0.2, a: true, scale: 0.1);
-//        let erFilter2 = ExtremeRegionFilter.createERFilterNM2(classifier2, andX: 0.5);
-        
-        var regions = Array<ExtremeRegionStat>();
-        
-        for channel in channels {
-            var region = ExtremeRegionStat()
+        dispatch_async(backgroundQueue) {
             
-            region = erFilter1.run(channel as! UIImage);
+            let fixedImage = image.fixOrientation()
+            let cImage = CImage(image: fixedImage)
             
-            regions.append(region);
+            let classifier1 = NSBundle.mainBundle().pathForResource("trained_classifierNM1", ofType: "xml")
+            let erFilter1 = ExtremeRegionFilter.createERFilterNM1(classifier1, c: 8, x: 0.00015, y: 0.13, f: 0.2, a: true, scale: 0.1)
+            
+            let regions: [ExtremeRegionStat] = cImage.channels.map { erFilter1.run($0 as! UIImage) }
+            
+            let groupedImage = ExtremeRegionStat.groupImage(cImage, withRegions: regions)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                completionHandler(groupedImage)
+            }
         }
-        
-        groupedImage = ExtremeRegionStat.groupImage(uImage, withRegions: regions);
-        
-        tesseract.recognize();
+    }
     
-        let words = tesseract.getConfidenceByWord;
+    func recognize(forImage image: UIImage, completionHandler: ([RecognizedTextBox] -> Void)) {
         
-        var texts = Array<String>();
+        tesseract.image = image
         
-        for word in words {
-            let dict = word as! Dictionary<String, AnyObject>
-            let text = dict["text"] as! String
-            let confidence = dict["confidence"] as! Float
-            let box = dict["boundingbox"] as! NSValue
-            if((text.utf16.count < 2 || confidence < 51) || (text.utf16.count < 4 && confidence < 60)){
-                continue
+        dispatch_async(dispatch_get_global_queue(0, 0)) {
+            self.tesseract.recognize()
+            
+            let words = self.tesseract.getConfidenceByWord as! [[String: AnyObject]]
+            
+            let textBoxes: [RecognizedTextBox] = words.map {
+                
+                let text = $0["text"] as! String
+                let confidence = $0["confidence"] as! Float
+                let frameValue = $0["boundingbox"] as! NSValue
+                let frame = frameValue.CGRectValue()
+                
+                return RecognizedTextBox(text: text, confidence: confidence, frame: frame)
             }
             
-            let rect = box.CGRectValue()
-            characterBoxes.append(CharBox(text: text, rect: rect))
-            texts.append(text)
-        }
-        
-        var str : String = ""
-        
-        for (idx, item) in texts.enumerate() {
-            str += item
-            if idx < texts.count-1 {
-                str += " "
+            dispatch_async(dispatch_get_main_queue()) {
+                completionHandler(textBoxes)
             }
         }
-        
-        recognizedText = str
     }
 }

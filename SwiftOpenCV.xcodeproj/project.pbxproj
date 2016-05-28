@@ -20,7 +20,7 @@
 		3BBEA9C619FFCE3000282ACD /* SwiftOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9C519FFCE3000282ACD /* SwiftOCR.swift */; };
 		3BBEA9C919FFCE3B00282ACD /* TextDetect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9C819FFCE3B00282ACD /* TextDetect.mm */; };
 		3BBEA9CC19FFCE4800282ACD /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9CB19FFCE4800282ACD /* UIImage+FixOrientation.m */; };
-		3BBEA9CE19FFCE6000282ACD /* CharBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9CD19FFCE6000282ACD /* CharBox.swift */; };
+		3BBEA9CE19FFCE6000282ACD /* RecognizedTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9CD19FFCE6000282ACD /* RecognizedTextBox.swift */; };
 		3BBEA9D119FFCE6F00282ACD /* ImageWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D019FFCE6F00282ACD /* ImageWrapper.mm */; };
 		3BBEA9D319FFCE7F00282ACD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */; };
 		3BBEA9D619FFCE8E00282ACD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9D519FFCE8E00282ACD /* MBProgressHUD.m */; };
@@ -62,7 +62,7 @@
 		3BBEA9C819FFCE3B00282ACD /* TextDetect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetect.mm; sourceTree = "<group>"; };
 		3BBEA9CA19FFCE4800282ACD /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
 		3BBEA9CB19FFCE4800282ACD /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
-		3BBEA9CD19FFCE6000282ACD /* CharBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharBox.swift; sourceTree = "<group>"; };
+		3BBEA9CD19FFCE6000282ACD /* RecognizedTextBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecognizedTextBox.swift; sourceTree = "<group>"; };
 		3BBEA9CF19FFCE6F00282ACD /* ImageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageWrapper.h; sourceTree = "<group>"; };
 		3BBEA9D019FFCE6F00282ACD /* ImageWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageWrapper.mm; sourceTree = "<group>"; };
 		3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 				3BBEA9D219FFCE7F00282ACD /* DetailViewController.swift */,
 				3BBEA9CF19FFCE6F00282ACD /* ImageWrapper.h */,
 				3BBEA9D019FFCE6F00282ACD /* ImageWrapper.mm */,
-				3BBEA9CD19FFCE6000282ACD /* CharBox.swift */,
+				3BBEA9CD19FFCE6000282ACD /* RecognizedTextBox.swift */,
 				3BBEA9CA19FFCE4800282ACD /* UIImage+FixOrientation.h */,
 				3BBEA9CB19FFCE4800282ACD /* UIImage+FixOrientation.m */,
 				3BBEA9C719FFCE3B00282ACD /* TextDetect.h */,
@@ -305,7 +305,7 @@
 				3BBEA9F319FFD3A800282ACD /* ArrayExtension.swift in Sources */,
 				3BBEA9CC19FFCE4800282ACD /* UIImage+FixOrientation.m in Sources */,
 				3BBEA9D619FFCE8E00282ACD /* MBProgressHUD.m in Sources */,
-				3BBEA9CE19FFCE6000282ACD /* CharBox.swift in Sources */,
+				3BBEA9CE19FFCE6000282ACD /* RecognizedTextBox.swift in Sources */,
 				3BBEA9C919FFCE3B00282ACD /* TextDetect.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
