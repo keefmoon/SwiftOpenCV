@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ImageCoordinateSpace
 
 class ViewController: UIViewController {
     
@@ -104,14 +105,18 @@ class ViewController: UIViewController {
                 }
                 strongSelf.recognizedTextLabels.removeAll()
                 
+                let imageView = strongSelf.imageView
+                
                 for textBox in filteredTextBoxes {
                     
-                    guard let convertedRect = try? strongSelf.imageView.convertToViewRect(fromImageRect: textBox.frame) else { continue }
+                    let imageSpace = imageView.contentSpace()
+                    let convertedRect = imageSpace.convertRect(textBox.frame, toCoordinateSpace: imageView)
                     
                     var labelRect = convertedRect
+                    labelRect.origin.y = imageView.frame.size.height - convertedRect.origin.y
                     labelRect.size.height = 20
                     labelRect.size.width = 300
-//                    print("\(labelRect)")
+                    print("\(labelRect)")
                     
                     let label = UILabel(frame: labelRect)
                     label.text = textBox.text

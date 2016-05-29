@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F98BD941CFA546900D3C222 /* UIImageView+GeometryConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F98BD931CFA546900D3C222 /* UIImageView+GeometryConversion.swift */; };
 		3BBEA98819FFCBCE00282ACD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA98719FFCBCE00282ACD /* AppDelegate.swift */; };
 		3BBEA98A19FFCBCE00282ACD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA98919FFCBCE00282ACD /* ViewController.swift */; };
 		3BBEA98F19FFCBCE00282ACD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BBEA98E19FFCBCE00282ACD /* Images.xcassets */; };
@@ -44,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2F98BD931CFA546900D3C222 /* UIImageView+GeometryConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+GeometryConversion.swift"; sourceTree = "<group>"; };
 		3BBEA98219FFCBCE00282ACD /* SwiftOpenCV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOpenCV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BBEA98619FFCBCE00282ACD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BBEA98719FFCBCE00282ACD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 		2F98BD921CFA541500D3C222 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2F98BD931CFA546900D3C222 /* UIImageView+GeometryConversion.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -375,7 +372,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F98BD941CFA546900D3C222 /* UIImageView+GeometryConversion.swift in Sources */,
 				3BBEA9D319FFCE7F00282ACD /* DetailViewController.swift in Sources */,
 				3BBEA98A19FFCBCE00282ACD /* ViewController.swift in Sources */,
 				3BBEA9C619FFCE3000282ACD /* SwiftOCR.swift in Sources */,
