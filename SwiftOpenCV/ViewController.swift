@@ -94,8 +94,6 @@ class ViewController: UIViewController {
                 // Filter out weird results
                 let filteredTextBoxes = textBoxes.filter { $0.text.characters.count > 0 && $0.confidence > 50 }
                 
-                print("\(filteredTextBoxes)")
-                
                 guard let strongSelf = self else { return }
                 
                 recognizingHud.hide(true)
@@ -108,11 +106,19 @@ class ViewController: UIViewController {
                 
                 for textBox in filteredTextBoxes {
                     
-                    guard let labelRect = try? strongSelf.imageView.convertToViewRect(fromImageRect: textBox.frame) else { continue }
+                    guard let convertedRect = try? strongSelf.imageView.convertToViewRect(fromImageRect: textBox.frame) else { continue }
+                    
+                    var labelRect = convertedRect
+                    labelRect.size.height = 20
+                    labelRect.size.width = 300
+//                    print("\(labelRect)")
                     
                     let label = UILabel(frame: labelRect)
                     label.text = textBox.text
-                    label.textColor = UIColor.init(white: CGFloat(textBox.confidence)/100, alpha: 1.0)
+                    label.font = UIFont.systemFontOfSize(10)
+                    label.clipsToBounds = false
+                    
+                    label.textColor = UIColor.blackColor() //UIColor(white: CGFloat(textBox.confidence)/100, alpha: 1.0)
                     strongSelf.labelContainer.addSubview(label)
                     strongSelf.recognizedTextLabels.append(label)
                 }
