@@ -91,6 +91,11 @@ class ViewController: UIViewController {
             
             strongSelf.ocr?.recognize(forImage: preparedImage) { textBoxes in
                 
+                // Filter out weird results
+                let filteredTextBoxes = textBoxes.filter { $0.text.characters.count > 0 && $0.confidence > 50 }
+                
+                print("\(filteredTextBoxes)")
+                
                 guard let strongSelf = self else { return }
                 
                 recognizingHud.hide(true)
@@ -101,9 +106,11 @@ class ViewController: UIViewController {
                 }
                 strongSelf.recognizedTextLabels.removeAll()
                 
-                for textBox in textBoxes {
+                for textBox in filteredTextBoxes {
                     
-                    let label = UILabel(frame: textBox.frame)
+                    guard let labelRect = try? strongSelf.imageView.convertToViewRect(fromImageRect: textBox.frame) else { continue }
+                    
+                    let label = UILabel(frame: labelRect)
                     label.text = textBox.text
                     label.textColor = UIColor.init(white: CGFloat(textBox.confidence)/100, alpha: 1.0)
                     strongSelf.labelContainer.addSubview(label)
@@ -116,60 +123,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-        
-        
-//        let groupedImage = ocr.recognize() //{ [weak self] textBoxes in
-//
-//            guard let strongSelf = self else { return }
-//            
-//            progressHud.hide(true)
-//            
-//            // Remove any existing labels
-//            for label in strongSelf.recognizedTextLabels {
-//                label.removeFromSuperview()
-//            }
-//            strongSelf.recognizedTextLabels.removeAll()
-//            
-//            for textBox in textBoxes {
-//                
-//                let label = UILabel(frame: textBox.frame)
-//                label.text = textBox.text
-//                label.textColor = UIColor.init(white: CGFloat(textBox.confidence)/100, alpha: 1.0)
-//                strongSelf.labelContainer.addSubview(label)
-//                strongSelf.recognizedTextLabels.append(label)
-//            }
-//
-//            // Fade in
-//            UIView.animateWithDuration(0.3) {
-//                strongSelf.labelContainer.alpha = 1.0
-//            }
-//
-//        }
-//        imageView.image = groupedImage
-//        self.ocr = ocr
-        
-        
-//        dispatch_async(dispatch_get_global_queue(0, 0)) {
-//            let ocr = SwiftOCR(fromImage: selectedImage)
-//            ocr.recognize()
-//            
-//            dispatch_sync(dispatch_get_main_queue()) {
-//                self.imageView.image = ocr.groupedImage
-//                
-//                progressHud.hide(true);
-//                
-//                let dprogressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//                dprogressHud.labelText = "Recognizing..."
-//                dprogressHud.mode = MBProgressHUDModeIndeterminate
-//
-//                let text = ocr.recognizedText
-//                
-//                self.performSegueWithIdentifier(Segue.ShowRecognition.rawValue, sender: text)
-//                
-//                dprogressHud.hide(true)
-//            }
-//        }
     }
 }
 
