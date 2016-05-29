@@ -35,13 +35,12 @@ extension UIImageView {
         case .ScaleAspectFit:
             let scale = min(ratioX, ratioY)
             convertedPoint.x = point.x * scale + (viewSize.width - imageSize.width * scale) / 2
-            convertedPoint.y = point.y * scale + (viewSize.width - imageSize.width * scale) / 2
-            
+            convertedPoint.y = point.y * scale + (viewSize.height - imageSize.height * scale) / 2
             
         case .ScaleAspectFill:
             let scale = max(ratioX, ratioY)
             convertedPoint.x = point.x * scale + (viewSize.width - imageSize.width * scale) / 2
-            convertedPoint.y = point.y * scale + (viewSize.width - imageSize.width * scale) / 2
+            convertedPoint.y = point.y * scale + (viewSize.height - imageSize.height * scale) / 2
             
         case .Center:
             convertedPoint.x = point.x + viewSize.width / 2 - imageSize.width / 2

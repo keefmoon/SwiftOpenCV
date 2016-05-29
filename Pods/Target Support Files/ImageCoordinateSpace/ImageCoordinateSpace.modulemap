@@ -1,0 +1,6 @@
+framework module ImageCoordinateSpace {
+  umbrella header "ImageCoordinateSpace-umbrella.h"
+
+  export *
+  module * { export * }
+}

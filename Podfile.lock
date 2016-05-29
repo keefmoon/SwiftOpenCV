@@ -1,0 +1,12 @@
+PODS:
+  - ImageCoordinateSpace (0.3.1)
+
+DEPENDENCIES:
+  - ImageCoordinateSpace
+
+SPEC CHECKSUMS:
+  ImageCoordinateSpace: 2b83984cace514bb2830f2c0c1bfa46c4bcfa9c4
+
+PODFILE CHECKSUM: 07f1cdf8bd0980d598fa40f509a19cbf4f6b084d
+
+COCOAPODS: 1.0.0

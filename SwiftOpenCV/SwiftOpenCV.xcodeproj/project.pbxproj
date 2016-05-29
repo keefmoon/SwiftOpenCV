@@ -30,6 +30,7 @@
 		3BBEA9DE19FFD1B400282ACD /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */; };
 		3BBEA9F319FFD3A800282ACD /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEA9F219FFD3A800282ACD /* ArrayExtension.swift */; };
 		3BBEA9FF19FFDDC100282ACD /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 3BBEA9FE19FFDDC100282ACD /* tessdata */; };
+		E0E2E95350A64F2975146DB9 /* Pods_SwiftOpenCV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5581F7A3243C45138FE078F8 /* Pods_SwiftOpenCV.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,9 @@
 		3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TesseractOCR.framework; path = ../TesseractOCR.framework; sourceTree = "<group>"; };
 		3BBEA9F219FFD3A800282ACD /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		3BBEA9FE19FFDDC100282ACD /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tessdata; path = SwiftOpenCV/tessdata; sourceTree = "<group>"; };
+		454BFC86B67ED3921FF96276 /* Pods-SwiftOpenCV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftOpenCV.release.xcconfig"; path = "../Pods/Target Support Files/Pods-SwiftOpenCV/Pods-SwiftOpenCV.release.xcconfig"; sourceTree = "<group>"; };
+		5581F7A3243C45138FE078F8 /* Pods_SwiftOpenCV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftOpenCV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E3CE534F0144C77B60AEC13 /* Pods-SwiftOpenCV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftOpenCV.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-SwiftOpenCV/Pods-SwiftOpenCV.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				3BBEA9DD19FFD1B400282ACD /* opencv2.framework in Frameworks */,
 				3BBEA9DE19FFD1B400282ACD /* TesseractOCR.framework in Frameworks */,
 				3BBEA9DA19FFD19500282ACD /* libstdc++.6.0.9.dylib in Frameworks */,
+				E0E2E95350A64F2975146DB9 /* Pods_SwiftOpenCV.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +109,7 @@
 				3BBEA9DB19FFD1B400282ACD /* opencv2.framework */,
 				3BBEA9DC19FFD1B400282ACD /* TesseractOCR.framework */,
 				3BBEA9D919FFD19500282ACD /* libstdc++.6.0.9.dylib */,
+				5581F7A3243C45138FE078F8 /* Pods_SwiftOpenCV.framework */,
 			);
 			name = Frameworks;
 			path = SwiftOpenCV;
@@ -136,6 +142,7 @@
 				2F1319631CF9CFBC00CBDA18 /* Frameworks */,
 				3BBEA9FE19FFDDC100282ACD /* tessdata */,
 				3BBEA98319FFCBCE00282ACD /* Products */,
+				664DEC6F97255307F9C5D938 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +208,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		664DEC6F97255307F9C5D938 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E3CE534F0144C77B60AEC13 /* Pods-SwiftOpenCV.debug.xcconfig */,
+				454BFC86B67ED3921FF96276 /* Pods-SwiftOpenCV.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,9 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BBEA9A119FFCBCE00282ACD /* Build configuration list for PBXNativeTarget "SwiftOpenCV" */;
 			buildPhases = (
+				1B2F8CF4B830A62E65D8AD0B /* 📦 Check Pods Manifest.lock */,
 				3BBEA97E19FFCBCE00282ACD /* Sources */,
 				3BBEA97F19FFCBCE00282ACD /* Frameworks */,
 				3BBEA98019FFCBCE00282ACD /* Resources */,
+				C41F2F7C9FB56C464BA260A6 /* 📦 Embed Pods Frameworks */,
+				B18747735C48CF0DD212AA5E /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,6 +321,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B2F8CF4B830A62E65D8AD0B /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B18747735C48CF0DD212AA5E /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-SwiftOpenCV/Pods-SwiftOpenCV-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C41F2F7C9FB56C464BA260A6 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-SwiftOpenCV/Pods-SwiftOpenCV-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3BBEA97E19FFCBCE00282ACD /* Sources */ = {
@@ -432,6 +499,7 @@
 		};
 		3BBEA9A219FFCBCE00282ACD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E3CE534F0144C77B60AEC13 /* Pods-SwiftOpenCV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -450,6 +518,7 @@
 		};
 		3BBEA9A319FFCBCE00282ACD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 454BFC86B67ED3921FF96276 /* Pods-SwiftOpenCV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
